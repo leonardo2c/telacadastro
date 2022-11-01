@@ -9,7 +9,8 @@ export default function App() {
   const [password, setPassword] = useState('')
   const [passwordValidation, setPasswordValidation] = useState('')
 
-  const [passwordVisible, setPasswordVisible] = useState(true); 
+  const [passwordVisible, setPasswordVisible] = useState(true);
+  const [passwordVisibleConfirm, setPasswordVisibleConfirm] = useState(true); 
   
   
   //Chamada para o back-end para cadastro.
@@ -59,9 +60,14 @@ export default function App() {
         style={styles.textinput}
         placeholder="Confirmar senha"
         placeholderTextColor="#8F92A9"
-        secureTextEntry={true}
+        secureTextEntry={passwordVisibleConfirm}
         onChangeText={passwordValidation=>setPasswordValidation(passwordValidation)}
       />
+      <TouchableOpacity 
+      style={styles.eyeBtn}
+      name={passwordVisible ? "eye" : "eye-off"} 
+      onPress={() => setPasswordVisibleConfirm(!passwordVisibleConfirm)}
+      ><Image source={require('./assets/eye.png')}></Image></TouchableOpacity>
       </View>
       
       <TouchableOpacity 
