@@ -2,16 +2,15 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image} from 'react-native';
 
-import EyeIcon from '../../Projetos/telacadastro/assets/eye.png'
-
 
 export default function App() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordValidation, setPasswordValidation] = useState('')
+
+  const [passwordVisible, setPasswordVisible] = useState(true); 
   
-  const [isSecureEntry, setIsSecureEntry] = useState(true)
   
   //Chamada para o back-end para cadastro.
   const registration = () => {
@@ -32,7 +31,7 @@ export default function App() {
       <TextInput 
         style={styles.textinput}
         placeholder="email@email.com"
-        onChangeText={(email)=>setEmail(email)}
+        onChangeText={email=>setEmail(email)}
       />
       </View>
 
@@ -43,11 +42,15 @@ export default function App() {
         style={styles.textinput}
         placeholder="Senha"
         placeholderTextColor="#8F92A9"
-        secureTextEntry={isSecureEntry}
+        secureTextEntry={passwordVisible}
         onChangeText={password=>setPassword(password)}        
       >        
       </TextInput>
-      <TouchableOpacity style={styles.eyeBtn}><Image source={require('./assets/eye.png')}></Image></TouchableOpacity>
+      <TouchableOpacity 
+      style={styles.eyeBtn}
+      name={passwordVisible ? "eye" : "eye-off"} 
+      onPress={() => setPasswordVisible(!passwordVisible)}
+      ><Image source={require('./assets/eye.png')}></Image></TouchableOpacity>
       </View>
       
       <Text style={styles.HeadingLabel}>CONFIRMAR SENHA</Text>
@@ -115,8 +118,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     paddingLeft: 10, 
     marginTop: 10,
-    justifyContent: 'center',
-    
+    justifyContent: 'center',    
   },
   SignUpText: {
     fontfamily: 'Roboto',
